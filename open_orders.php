@@ -12,8 +12,6 @@ $filtered = array_filter($rows, function ($row) use ($threshold) {
 <!DOCTYPE html>
 <html>
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="stylesheet" href="assets/style.css">
   <title>Open Orders</title>
 </head>

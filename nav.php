@@ -11,7 +11,7 @@ require_once __DIR__ . '/auth.php';
     <span class="chip scope">Scope: <?php echo htmlspecialchars(scope_label()); ?></span>
     <span class="chip user">User: <?php echo htmlspecialchars($_SESSION['username'] ?? ''); ?></span>
   </div>
-  <div class="nav-links" id="nav-links">
+  <div class="nav-links">
     <a href="dashboard.php">Dashboard</a>
     <a href="unbilled.php">Unbilled</a>
     <a href="open_orders.php">Open Orders</a>
@@ -27,13 +27,3 @@ require_once __DIR__ . '/auth.php';
     <a href="logout.php">Logout</a>
   </div>
 </nav>
-<script>
-  const navToggle = document.querySelector('.nav-toggle');
-  const navLinks = document.getElementById('nav-links');
-  if (navToggle && navLinks) {
-    navToggle.addEventListener('click', () => {
-      const open = navLinks.classList.toggle('open');
-      navToggle.setAttribute('aria-expanded', open ? 'true' : 'false');
-    });
-  }
-</script>

@@ -13,8 +13,6 @@ $filtered = array_filter($customers, function ($row) use ($search) {
 <!DOCTYPE html>
 <html>
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="stylesheet" href="assets/style.css">
   <title>Customers</title>
 </head>

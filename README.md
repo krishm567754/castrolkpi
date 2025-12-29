@@ -25,14 +25,6 @@ and enforces role-based access with sales executive scopes.
   - Send that URL to anyone (mobile/desktop) to view the dashboard without extra forwarding.
 - Alternatively, if you already started the server (via `./serve.sh`), you can run `cloudflared tunnel --url http://localhost:8000` to generate a one-off shareable link.
 
-## Sharing reference designs when browsing is blocked
-- I cannot open external sites directly from this environment (e.g., `https://krishmo.xo.je`).
-- To mirror a reference site, please share one of the following so I can replicate the layout/KPIs:
-  - Screenshots (desktop + mobile) or a short screen recording.
-  - A PDF export or print-to-PDF of the key pages.
-  - A feature list (sections, KPIs, filters, interactions) and any color/font preferences.
-- After you provide these assets/notes, I can align the dashboard’s KPIs, cards, and mobile layout to match the reference.
-
 ## Data files
 Upload processing is still a placeholder, but JSON files drive all views:
 - `data/invoices_current.json` – current year invoices (filtered by allowed sales execs).

@@ -4,36 +4,17 @@ ensure_logged_in();
 
 $query = trim($_GET['q'] ?? '');
 $invoices = filter_invoices_by_scope(read_json('invoices_current.json'));
-$grouped = [];
+$results = [];
 if ($query !== '') {
-    foreach ($invoices as $row) {
+    $results = array_filter($invoices, function ($row) use ($query) {
         $invoiceNumber = strtolower((string) ($row['invoice_no'] ?? $row['invoice'] ?? ''));
-        if (strpos($invoiceNumber, strtolower($query)) === false) {
-            continue;
-        }
-        $key = $row['invoice_no'] ?? $row['invoice'] ?? 'Unknown';
-        if (!isset($grouped[$key])) {
-            $grouped[$key] = [
-                'date' => $row['date'] ?? '',
-                'invoice_no' => $key,
-                'customer' => $row['customer'] ?? '',
-                'sales_exec' => $row['sales_exec'] ?? ($row['sales_executive'] ?? ''),
-                'lines' => [],
-            ];
-        }
-        $grouped[$key]['lines'][] = [
-            'product' => $row['product'] ?? ($row['brand'] ?? ''),
-            'brand' => $row['brand'] ?? ($row['product'] ?? ''),
-            'volume' => (float) ($row['volume_l'] ?? $row['volume'] ?? 0),
-        ];
-    }
+        return strpos($invoiceNumber, strtolower($query)) !== false;
+    });
 }
 ?>
 <!DOCTYPE html>
 <html>
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="stylesheet" href="assets/style.css">
   <title>Invoice Search</title>
 </head>
@@ -52,30 +33,22 @@ if ($query !== '') {
       <table class="table">
         <thead>
           <tr>
-            <th>Date</th>
-            <th>Invoice No</th>
-            <th>Customer</th>
-            <th>Sales Exec</th>
-            <th>Total Volume (Ltr)</th>
+            <?php if (!empty($results)) foreach (array_keys(reset($results)) as $key): ?>
+              <th><?php echo htmlspecialchars($key); ?></th>
+            <?php endforeach; ?>
           </tr>
         </thead>
         <tbody>
           <?php if ($query === ''): ?>
-            <tr><td colspan="5" class="placeholder">Enter an invoice number to search.</td></tr>
-          <?php elseif (empty($grouped)): ?>
-            <tr><td colspan="5" class="placeholder">No matches found.</td></tr>
+            <tr><td colspan="99" class="placeholder">Enter an invoice number to search.</td></tr>
+          <?php elseif (empty($results)): ?>
+            <tr><td colspan="99" class="placeholder">No matches found.</td></tr>
           <?php else: ?>
-            <?php foreach ($grouped as $invoice): ?>
-              <?php
-                $totalVolume = array_sum(array_column($invoice['lines'], 'volume'));
-                $payload = htmlspecialchars(json_encode($invoice['lines']), ENT_QUOTES);
-              ?>
-              <tr class="clickable" data-details="<?php echo $payload; ?>" data-title="Invoice <?php echo htmlspecialchars($invoice['invoice_no'], ENT_QUOTES); ?>" data-subtitle="<?php echo htmlspecialchars($invoice['customer'], ENT_QUOTES); ?>">
-                <td><?php echo htmlspecialchars($invoice['date']); ?></td>
-                <td><?php echo htmlspecialchars($invoice['invoice_no']); ?></td>
-                <td><?php echo htmlspecialchars($invoice['customer']); ?></td>
-                <td><?php echo htmlspecialchars($invoice['sales_exec']); ?></td>
-                <td><?php echo number_format($totalVolume, 2); ?></td>
+            <?php foreach ($results as $row): ?>
+              <tr>
+                <?php foreach ($row as $value): ?>
+                  <td><?php echo htmlspecialchars($value); ?></td>
+                <?php endforeach; ?>
               </tr>
             <?php endforeach; ?>
           <?php endif; ?>
@@ -83,50 +56,5 @@ if ($query !== '') {
       </table>
     </div>
   </div>
-
-  <div id="modal" class="modal hidden">
-    <div class="modal-backdrop"></div>
-    <div class="modal-card">
-      <div class="modal-header">
-        <div>
-          <div class="modal-title" id="modal-title">Invoice Details</div>
-          <div class="modal-subtitle" id="modal-subtitle"></div>
-        </div>
-        <button class="icon-btn" id="modal-close" aria-label="Close">×</button>
-      </div>
-      <div class="table-scroll" id="modal-body"></div>
-    </div>
-  </div>
-
-  <script>
-    document.querySelectorAll('[data-details]').forEach(function(row) {
-      row.addEventListener('click', function() {
-        const lines = JSON.parse(this.dataset.details);
-        const title = this.dataset.title || 'Invoice Details';
-        const subtitle = this.dataset.subtitle || '';
-        document.getElementById('modal-title').textContent = title;
-        document.getElementById('modal-subtitle').textContent = subtitle;
-        let html = '<table class="table"><thead><tr><th>Product</th><th>Brand</th><th>Volume (Ltr)</th></tr></thead><tbody>';
-        if (lines.length === 0) {
-          html += '<tr><td colspan="3" class="placeholder">No line items found.</td></tr>';
-        } else {
-          lines.forEach(function(line) {
-            html += '<tr><td>' + (line.product || '') + '</td><td>' + (line.brand || '') + '</td><td>' + Number(line.volume).toFixed(2) + '</td></tr>';
-          });
-        }
-        html += '</tbody></table>';
-        document.getElementById('modal-body').innerHTML = html;
-        document.getElementById('modal').classList.remove('hidden');
-      });
-    });
-
-    document.getElementById('modal-close').addEventListener('click', function() {
-      document.getElementById('modal').classList.add('hidden');
-    });
-
-    document.querySelector('#modal .modal-backdrop').addEventListener('click', function() {
-      document.getElementById('modal').classList.add('hidden');
-    });
-  </script>
 </body>
 </html>

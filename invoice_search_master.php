@@ -25,8 +25,6 @@ $results = array_filter($all, function ($row) use ($customerQuery, $productQuery
 <!DOCTYPE html>
 <html>
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="stylesheet" href="assets/style.css">
   <title>Master Invoice Search</title>
 </head>
