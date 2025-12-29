@@ -1,0 +1,14 @@
+[
+  {
+    "username": "admin",
+    "password": "admin",
+    "role": "admin",
+    "allowed_sales_execs": ["ALL"]
+  },
+  {
+    "username": "se1",
+    "password": "1234",
+    "role": "user",
+    "allowed_sales_execs": ["SalesExec1", "SalesExec2"]
+  }
+]
