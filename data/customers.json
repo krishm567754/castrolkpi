@@ -1,0 +1,5 @@
+[
+  {"name": "Alpha Motors", "city": "Mumbai", "phone": "+91-11111-11111", "code": "CUST-001", "gst": "GSTALPHA"},
+  {"name": "Beta Auto", "city": "Pune", "phone": "+91-22222-22222", "code": "CUST-002", "gst": "GSTBETA"},
+  {"name": "Gamma Cars", "city": "Delhi", "phone": "+91-33333-33333", "code": "CUST-003", "gst": "GSTGAMMA"}
+]
