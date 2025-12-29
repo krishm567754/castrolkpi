@@ -2,7 +2,10 @@
 require_once __DIR__ . '/auth.php';
 ?>
 <nav class="nav-bar">
-  <div class="brand">Castrol KPI</div>
+  <div class="brand-row">
+    <div class="brand">Castrol KPI</div>
+    <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="nav-links">☰ Menu</button>
+  </div>
   <div class="nav-user">
     <span class="chip role">Role: <?php echo htmlspecialchars($_SESSION['role'] ?? ''); ?></span>
     <span class="chip scope">Scope: <?php echo htmlspecialchars(scope_label()); ?></span>
