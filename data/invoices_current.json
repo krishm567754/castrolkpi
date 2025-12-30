@@ -1,0 +1,4 @@
+[
+  {"invoice_no": "INV-1001", "date": "2024-05-28", "customer": "Alpha Motors", "product": "Activ", "volume_l": 12.5, "sales_exec": "SalesExec1"},
+  {"invoice_no": "INV-1002", "date": "2024-05-27", "customer": "Beta Auto", "product": "Power1", "volume_l": 5.0, "sales_exec": "SalesExec2"}
+]
