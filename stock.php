@@ -21,41 +21,21 @@ function pack_size($row) {
 <!DOCTYPE html>
 <html>
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="stylesheet" href="assets/style.css">
   <title>Stock</title>
 </head>
 <body>
   <?php include 'nav.php'; ?>
   <div class="layout">
-    <div class="page-shell">
-      <div class="page-title-row">
-        <div>
-          <p class="eyebrow">Inventory</p>
-          <h1 class="page-title">Current Stock</h1>
-          <p class="page-subtitle">Search stock items by name or code. Liters auto-calculate when pack size is present, keeping the mobile table compact.</p>
-        </div>
-        <div class="data-badges">
-          <span class="chip-soft">Source: stock.json</span>
-          <span class="chip-soft">Liters calculated</span>
-          <a class="btn ghost" href="stock.php">Reset</a>
-        </div>
-      </div>
-    </div>
-
-    <form method="GET" class="card glow-card" style="max-width:520px; margin-top:4px;">
+    <h2>Stock</h2>
+    <form method="GET" style="max-width:420px; margin-top:8px;">
       <div class="form-group">
-        <label>Search Stock</label>
-        <input type="text" name="q" value="<?php echo htmlspecialchars($query); ?>" placeholder="Search by item name or code">
+        <label>Item search</label>
+        <input type="text" name="q" value="<?php echo htmlspecialchars($query); ?>" placeholder="Name or code">
       </div>
-      <div style="display:flex; gap:10px; flex-wrap:wrap;">
-        <button type="submit">Search</button>
-        <a class="pill-btn" href="stock.php">Reset</a>
-      </div>
+      <button type="submit">Search</button>
     </form>
-
-    <div class="table-scroll table-card" style="margin-top:16px;">
+    <div class="table-scroll" style="margin-top:16px;">
       <table class="table">
         <thead>
           <tr>

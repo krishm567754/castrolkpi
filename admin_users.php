@@ -62,94 +62,72 @@ if (isset($_GET['delete'])) {
 <!DOCTYPE html>
 <html>
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="stylesheet" href="assets/style.css">
   <title>Admin Users</title>
 </head>
 <body>
   <?php include 'nav.php'; ?>
   <div class="layout">
-    <div class="page-header">
-      <div>
-        <div class="eyebrow">Admin</div>
-        <h1 style="margin: 0;">User Management</h1>
-        <p class="subtitle">Manage roles, permissions, and sales executive scope. Mobile-friendly and fast to fill.</p>
-      </div>
-      <div class="actions">
-        <a class="pill-btn" href="#user-form">➕ Add User</a>
-      </div>
-    </div>
-
-    <div id="user-form" class="card" style="margin-top:12px; max-width:860px;">
-      <div class="card-header" style="margin-bottom: 10px;">
-        <h2 style="margin:0;">Create or Update</h2>
-        <span class="badge">Instant save on submit</span>
-      </div>
+    <h2>User & Role Management</h2>
+    <div class="card" style="margin-top:12px; max-width:720px;">
       <form method="POST">
-        <div class="form-grid">
-          <div class="form-group">
-            <label>Username</label>
-            <input type="text" name="username" required placeholder="e.g. se1 or admin">
-          </div>
-          <div class="form-group">
-            <label>Password</label>
-            <input type="text" name="password" required placeholder="Set or reset password">
+        <div class="form-group">
+          <label>Username</label>
+          <input type="text" name="username" required>
+        </div>
+        <div class="form-group">
+          <label>Password</label>
+          <input type="text" name="password" required>
+        </div>
+        <div class="form-group">
+          <label>Role</label>
+          <select name="role">
+            <option value="admin">admin</option>
+            <option value="user">user</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label>Allowed Sales Executives</label>
+          <div class="tag-list">
+            <label><input type="checkbox" name="allowed[]" value="ALL"> ALL</label>
+            <?php foreach ($salesExecs as $exec): ?>
+              <label><input type="checkbox" name="allowed[]" value="<?php echo htmlspecialchars($exec); ?>"> <?php echo htmlspecialchars($exec); ?></label>
+            <?php endforeach; ?>
           </div>
         </div>
-        <div class="form-grid">
-          <div class="form-group">
-            <label>Role</label>
-            <select name="role">
-              <option value="admin">Admin (full control)</option>
-              <option value="user">User (restricted)</option>
-            </select>
-          </div>
-          <div class="form-group">
-            <label>Sales Executive Access</label>
-            <p class="small" style="margin:4px 0 8px;">Choose ALL for full access or pick individuals.</p>
-            <div class="checkbox-grid">
-              <label class="checkbox-pill"><input type="checkbox" name="allowed[]" value="ALL"> <span>ALL (Full Access)</span></label>
-              <?php foreach ($salesExecs as $exec): ?>
-                <label class="checkbox-pill"><input type="checkbox" name="allowed[]" value="<?php echo htmlspecialchars($exec); ?>"> <span><?php echo htmlspecialchars($exec); ?></span></label>
-              <?php endforeach; ?>
-            </div>
-          </div>
-        </div>
-        <div style="display:flex; gap:10px; flex-wrap:wrap; margin-top:8px;">
-          <button type="submit">Create User</button>
-          <button type="reset" class="ghost">Reset</button>
-        </div>
+        <button type="submit">Add / Update User</button>
       </form>
     </div>
 
     <div class="card" style="margin-top:16px;">
-      <div class="card-header" style="margin-bottom: 6px;">
-        <div>
-          <h2 style="margin:0;">Users List</h2>
-          <p class="small" style="margin:4px 0 0;">All registered users with their permissions.</p>
-        </div>
-        <span class="badge">Live</span>
-      </div>
-      <div class="stacked-list">
-        <?php foreach ($users as $user): ?>
-          <div class="list-item">
-            <div style="display:flex; justify-content:space-between; gap:8px; flex-wrap:wrap; align-items:center;">
-              <div>
-                <div class="title"><?php echo htmlspecialchars($user['username']); ?></div>
-                <div class="meta">Sales Exec Access: <?php echo htmlspecialchars(implode(', ', $user['allowed_sales_execs'])); ?></div>
-              </div>
-              <div class="tag-list">
-                <span class="badge"><?php echo htmlspecialchars($user['role']); ?></span>
-                <?php if ($user['username'] === ($_SESSION['username'] ?? '')): ?>
-                  <span class="badge">Current User</span>
-                <?php else: ?>
-                  <a class="badge" style="color: var(--danger);" href="?delete=<?php echo urlencode($user['username']); ?>">Delete</a>
-                <?php endif; ?>
-              </div>
-            </div>
-          </div>
-        <?php endforeach; ?>
+      <h3>Existing Users</h3>
+      <div class="table-scroll">
+        <table class="table">
+          <thead>
+            <tr>
+              <th>Username</th>
+              <th>Role</th>
+              <th>Sales Exec Access</th>
+              <th>Actions</th>
+            </tr>
+          </thead>
+          <tbody>
+            <?php foreach ($users as $user): ?>
+              <tr>
+                <td><?php echo htmlspecialchars($user['username']); ?></td>
+                <td><?php echo htmlspecialchars($user['role']); ?></td>
+                <td><?php echo htmlspecialchars(implode(', ', $user['allowed_sales_execs'])); ?></td>
+                <td>
+                  <?php if ($user['username'] !== ($_SESSION['username'] ?? '')): ?>
+                    <a class="badge" style="color: var(--danger);" href="?delete=<?php echo urlencode($user['username']); ?>">Delete</a>
+                  <?php else: ?>
+                    <span class="badge">Current User</span>
+                  <?php endif; ?>
+                </td>
+              </tr>
+            <?php endforeach; ?>
+          </tbody>
+        </table>
       </div>
     </div>
   </div>

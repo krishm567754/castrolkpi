@@ -25,45 +25,25 @@ $results = array_filter($all, function ($row) use ($customerQuery, $productQuery
 <!DOCTYPE html>
 <html>
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="stylesheet" href="assets/style.css">
   <title>Master Invoice Search</title>
 </head>
 <body>
   <?php include 'nav.php'; ?>
   <div class="layout">
-    <div class="page-shell">
-      <div class="page-title-row">
-        <div>
-          <p class="eyebrow">Invoices</p>
-          <h1 class="page-title">Master Search</h1>
-          <p class="page-subtitle">Search current and historical invoices by customer and brand. Tables stay compact on phones and stay filtered to your allowed sales executives.</p>
-        </div>
-        <div class="data-badges">
-          <span class="chip-soft">Sources: invoices_current + invoices_history</span>
-          <a class="btn ghost" href="invoice_search_master.php">Reset</a>
-        </div>
+    <h2>Invoice Search (2 Years)</h2>
+    <form method="GET" class="card" style="max-width:640px;">
+      <div class="form-group">
+        <label>Customer Name</label>
+        <input type="text" name="customer" value="<?php echo htmlspecialchars($customerQuery); ?>" placeholder="Customer (partial)">
       </div>
-    </div>
-
-    <form method="GET" class="card glow-card" style="max-width:680px;">
-      <div class="form-grid">
-        <div class="form-group">
-          <label>Customer Name</label>
-          <input type="text" name="customer" value="<?php echo htmlspecialchars($customerQuery); ?>" placeholder="Customer (partial)">
-        </div>
-        <div class="form-group">
-          <label>Product / Brand</label>
-          <input type="text" name="product" value="<?php echo htmlspecialchars($productQuery); ?>" placeholder="Product or brand (partial)">
-        </div>
+      <div class="form-group">
+        <label>Product / Brand</label>
+        <input type="text" name="product" value="<?php echo htmlspecialchars($productQuery); ?>" placeholder="Product or brand (partial)">
       </div>
-      <div style="display:flex; gap:10px; flex-wrap:wrap;">
-        <button type="submit">Search</button>
-        <a class="pill-btn" href="invoice_search_master.php">Reset</a>
-      </div>
+      <button type="submit">Search</button>
     </form>
-    <div class="table-scroll table-card" style="margin-top:16px;">
+    <div class="table-scroll" style="margin-top:16px;">
       <table class="table">
         <thead>
           <tr>

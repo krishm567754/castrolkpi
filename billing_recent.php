@@ -12,8 +12,6 @@ $recent = array_filter($invoices, function ($row) use ($threshold) {
 <!DOCTYPE html>
 <html>
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="stylesheet" href="assets/style.css">
   <title>Recent Billing</title>
 </head>
@@ -34,6 +32,8 @@ $recent = array_filter($invoices, function ($row) use ($threshold) {
       </div>
     </div>
     <div class="table-scroll table-card">
+    <h2>Last 7 Days Billing</h2>
+    <div class="table-scroll">
       <table class="table">
         <thead>
           <tr>
