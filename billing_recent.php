@@ -18,6 +18,20 @@ $recent = array_filter($invoices, function ($row) use ($threshold) {
 <body>
   <?php include 'nav.php'; ?>
   <div class="layout">
+    <div class="page-shell">
+      <div class="page-title-row">
+        <div>
+          <p class="eyebrow">Billing</p>
+          <h1 class="page-title">Last 7 Days</h1>
+          <p class="page-subtitle">Recent billing for your sales exec scope, in a horizontal-scroll card for smaller screens.</p>
+        </div>
+        <div class="data-badges">
+          <span class="chip-soft">Source: invoices_current.json</span>
+          <span class="chip-soft">Window: 7 days</span>
+        </div>
+      </div>
+    </div>
+    <div class="table-scroll table-card">
     <h2>Last 7 Days Billing</h2>
     <div class="table-scroll">
       <table class="table">
