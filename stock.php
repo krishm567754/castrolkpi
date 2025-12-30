@@ -29,15 +29,22 @@ function pack_size($row) {
 <body>
   <?php include 'nav.php'; ?>
   <div class="layout">
-    <div class="page-header">
-      <div>
-        <div class="eyebrow">Inventory</div>
-        <h1 style="margin:0;">Current Stock</h1>
-        <p class="subtitle">Search stock items by name or code. Liters auto-calculated for you.</p>
+    <div class="page-shell">
+      <div class="page-title-row">
+        <div>
+          <p class="eyebrow">Inventory</p>
+          <h1 class="page-title">Current Stock</h1>
+          <p class="page-subtitle">Search stock items by name or code. Liters auto-calculate when pack size is present, keeping the mobile table compact.</p>
+        </div>
+        <div class="data-badges">
+          <span class="chip-soft">Source: stock.json</span>
+          <span class="chip-soft">Liters calculated</span>
+          <a class="btn ghost" href="stock.php">Reset</a>
+        </div>
       </div>
     </div>
 
-    <form method="GET" class="card" style="max-width:520px; margin-top:4px;">
+    <form method="GET" class="card glow-card" style="max-width:520px; margin-top:4px;">
       <div class="form-group">
         <label>Search Stock</label>
         <input type="text" name="q" value="<?php echo htmlspecialchars($query); ?>" placeholder="Search by item name or code">

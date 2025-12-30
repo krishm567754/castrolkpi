@@ -33,15 +33,21 @@ $results = array_filter($all, function ($row) use ($customerQuery, $productQuery
 <body>
   <?php include 'nav.php'; ?>
   <div class="layout">
-    <div class="page-header">
-      <div>
-        <div class="eyebrow">Invoices</div>
-        <h1 style="margin:0;">Master Search</h1>
-        <p class="subtitle">Search current and historical invoices by customer and brand. Results are mobile-optimized.</p>
+    <div class="page-shell">
+      <div class="page-title-row">
+        <div>
+          <p class="eyebrow">Invoices</p>
+          <h1 class="page-title">Master Search</h1>
+          <p class="page-subtitle">Search current and historical invoices by customer and brand. Tables stay compact on phones and stay filtered to your allowed sales executives.</p>
+        </div>
+        <div class="data-badges">
+          <span class="chip-soft">Sources: invoices_current + invoices_history</span>
+          <a class="btn ghost" href="invoice_search_master.php">Reset</a>
+        </div>
       </div>
     </div>
 
-    <form method="GET" class="card" style="max-width:680px;">
+    <form method="GET" class="card glow-card" style="max-width:680px;">
       <div class="form-grid">
         <div class="form-group">
           <label>Customer Name</label>

@@ -28,7 +28,19 @@ $unbilled = array_filter($totals, function ($vol) {
 <body>
   <?php include 'nav.php'; ?>
   <div class="layout">
-    <h2>Customers &lt; 9L</h2>
+    <div class="page-shell">
+      <div class="page-title-row">
+        <div>
+          <p class="eyebrow">Gap Watch</p>
+          <h1 class="page-title">Customers &lt; 9L</h1>
+          <p class="page-subtitle">Spot low-volume customers quickly and jump straight into Dealer 360 to view contact, city, and GST details.</p>
+        </div>
+        <div class="data-badges">
+          <span class="chip-soft">Source: invoices_current.json</span>
+          <span class="chip-soft">Filter: &lt; 9 liters</span>
+        </div>
+      </div>
+    </div>
     <div class="card-grid" style="margin-top:12px;">
       <?php if (empty($unbilled)): ?>
         <p class="placeholder">No customers under 9L in the current data.</p>
@@ -39,7 +51,7 @@ $unbilled = array_filter($totals, function ($vol) {
               <h2><?php echo htmlspecialchars($customer); ?></h2>
               <span class="badge">Total: <?php echo number_format($vol, 2); ?> L</span>
             </div>
-            <p class="small">Dealer 360 details pull from <code>customers.json</code>.</p>
+            <p class="small">Dealer 360 pulls from <code>customers.json</code>.</p>
             <a class="btn" href="customer_master.php?search=<?php echo urlencode($customer); ?>">Dealer 360</a>
           </div>
         <?php endforeach; ?>

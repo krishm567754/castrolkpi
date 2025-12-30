@@ -20,8 +20,20 @@ $filtered = array_filter($rows, function ($row) use ($threshold) {
 <body>
   <?php include 'nav.php'; ?>
   <div class="layout">
-    <h2>Open Orders - Last 3 Days</h2>
-    <div class="table-scroll">
+    <div class="page-shell">
+      <div class="page-title-row">
+        <div>
+          <p class="eyebrow">Orders</p>
+          <h1 class="page-title">Open Orders</h1>
+          <p class="page-subtitle">Showing the last 3 days of activity for your allowed sales executives with a mobile-friendly, scrollable table.</p>
+        </div>
+        <div class="data-badges">
+          <span class="chip-soft">Source: open_orders.json</span>
+          <span class="chip-soft">Window: 3 days</span>
+        </div>
+      </div>
+    </div>
+    <div class="table-card table-scroll">
       <table class="table">
         <thead>
           <tr>

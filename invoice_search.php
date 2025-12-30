@@ -40,8 +40,20 @@ if ($query !== '') {
 <body>
   <?php include 'nav.php'; ?>
   <div class="layout">
-    <h2>Invoice Search (Current Year)</h2>
-    <form method="GET" style="max-width:420px; margin-top:8px;">
+    <div class="page-shell">
+      <div class="page-title-row">
+        <div>
+          <p class="eyebrow">Current Year</p>
+          <h1 class="page-title">Invoice Search</h1>
+          <p class="page-subtitle">Find invoices by number (partial match). Results are grouped by invoice and tailored to your allowed sales executives with tap-to-expand details.</p>
+        </div>
+        <div class="data-badges">
+          <span class="chip-soft">Source: invoices_current.json</span>
+          <a class="btn ghost" href="?">Reset</a>
+        </div>
+      </div>
+    </div>
+    <form method="GET" class="card glow-card" style="max-width:420px; margin-top:8px;">
       <div class="form-group">
         <label>Invoice Number</label>
         <input type="text" name="q" value="<?php echo htmlspecialchars($query); ?>" placeholder="Partial match">

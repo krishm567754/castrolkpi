@@ -21,15 +21,21 @@ $filtered = array_filter($customers, function ($row) use ($search) {
 <body>
   <?php include 'nav.php'; ?>
   <div class="layout">
-    <div class="page-header">
-      <div>
-        <div class="eyebrow">Customers</div>
-        <h1 style="margin:0;">Customer Master</h1>
-        <p class="subtitle">Search by name, code, city, or phone. Tap a row for a full profile modal.</p>
+    <div class="page-shell">
+      <div class="page-title-row">
+        <div>
+          <p class="eyebrow">Customers</p>
+          <h1 class="page-title">Customer Master</h1>
+          <p class="page-subtitle">Search by name, code, city, or phone. Tap a row for a full profile modal—cards and tables are tuned for single-column mobile layouts.</p>
+        </div>
+        <div class="data-badges">
+          <span class="chip-soft">Source: customers.json</span>
+          <a class="btn ghost" href="customer_master.php">Reset</a>
+        </div>
       </div>
     </div>
 
-    <form method="GET" class="card" style="max-width:560px; margin-top:4px;">
+    <form method="GET" class="card glow-card" style="max-width:560px; margin-top:4px;">
       <div class="form-group">
         <label>Customer Name / Code</label>
         <input type="text" name="search" value="<?php echo htmlspecialchars($search); ?>" placeholder="Start typing to filter instantly">
